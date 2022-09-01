@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
@@ -17,9 +18,9 @@ class RoleController extends Controller
      */
     function __construct()
     {
-        $this->middleware('role_or_permission:Role access|Role create|Role edit|Role delete', ['only' => ['index','show']]);
-        $this->middleware('role_or_permission:Role create', ['only' => ['create','store']]);
-        $this->middleware('role_or_permission:Role edit', ['only' => ['edit','update']]);
+        $this->middleware('role_or_permission:Role access|Role create|Role edit|Role delete', ['only' => ['index', 'show']]);
+        $this->middleware('role_or_permission:Role create', ['only' => ['create', 'store']]);
+        $this->middleware('role_or_permission:Role edit', ['only' => ['edit', 'update']]);
         $this->middleware('role_or_permission:Role delete', ['only' => ['destroy']]);
     }
 
@@ -30,9 +31,10 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $role= Role::latest()->get();
+        $role = Role::latest()->paginate(2);
+        // $role= Role::latest()->get();
 
-        return view('setting.role.index',['roles'=>$role]);
+        return view('setting.role.index', ['roles' => $role]);
     }
 
     /**
@@ -43,7 +45,7 @@ class RoleController extends Controller
     public function create()
     {
         $permissions = Permission::get();
-        return view('setting.role.new',['permissions'=>$permissions]);
+        return view('setting.role.new', ['permissions' => $permissions]);
     }
 
     /**
@@ -54,12 +56,12 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(['name'=>'required']);
+        $request->validate(['name' => 'required']);
 
-        $role = Role::create(['name'=>$request->name]);
+        $role = Role::create(['name' => $request->name]);
 
         $role->syncPermissions($request->permissions);
-        
+
         return redirect()->back()->withSuccess('Role created !!!');
     }
 
@@ -84,7 +86,7 @@ class RoleController extends Controller
     {
         $permission = Permission::get();
         $role->permissions;
-       return view('setting.role.edit',['role'=>$role,'permissions' => $permission]);
+        return view('setting.role.edit', ['role' => $role, 'permissions' => $permission]);
     }
 
     /**
@@ -96,7 +98,7 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
-        $role->update(['name'=>$request->name]);
+        $role->update(['name' => $request->name]);
         $role->syncPermissions($request->permissions);
         return redirect()->back()->withSuccess('Role updated !!!');
     }

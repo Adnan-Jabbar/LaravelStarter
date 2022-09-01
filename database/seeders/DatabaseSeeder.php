@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Post;
 use Illuminate\Database\Seeder;
+use Database\Seeders\MailsettingSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,5 +24,6 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call(AdminSeeder::class);
         Post::factory(100)->create();
+        $this->call(MailsettingSeeder::class);
     }
 }

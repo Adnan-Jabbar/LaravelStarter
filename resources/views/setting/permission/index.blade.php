@@ -42,6 +42,12 @@
                     
                   </tbody>
                 </table>
+
+                @can('Permission access')
+                  <div class="text-right p-4 py-10">
+                    {{ $permissions->links() }}
+                  </div>
+                @endcan
               </div>
   
             </div>

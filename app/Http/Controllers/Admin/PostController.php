@@ -27,9 +27,11 @@ class PostController extends Controller
      */
     public function index()
     {
-        $Post= Post::paginate(4);
+        $Post= Post::latest()->paginate(4);
 
         return view('post.index',['posts'=>$Post]);
+
+        return view('posts', compact('posts'));
     }
 
     /**
@@ -102,4 +104,5 @@ class PostController extends Controller
         $post->delete();
         return redirect()->back()->withSuccess('Post deleted !!!');
     }
+
 }
