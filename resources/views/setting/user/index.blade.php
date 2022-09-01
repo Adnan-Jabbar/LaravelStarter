@@ -48,6 +48,13 @@
 
                   </tbody>
                 </table>
+
+                @can('User access')
+                  <div class="text-right p-4 py-10">
+                    {{ $users->links() }}
+                  </div>
+                @endcan
+
               </div>
   
             </div>

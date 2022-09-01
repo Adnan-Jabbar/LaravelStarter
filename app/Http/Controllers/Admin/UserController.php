@@ -32,8 +32,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user= User::latest()->get();
-
+        $user= User::latest()->paginate(4);
+        // $user= User::latest()->get();
+    
         return view('setting.user.index',['users'=>$user]);
     }
 

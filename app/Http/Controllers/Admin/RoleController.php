@@ -31,7 +31,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $role = Role::latest()->paginate(2);
+        $role = Role::latest()->paginate(4);
         // $role= Role::latest()->get();
 
         return view('setting.role.index', ['roles' => $role]);

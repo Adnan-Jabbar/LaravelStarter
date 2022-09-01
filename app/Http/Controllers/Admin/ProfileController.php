@@ -35,9 +35,11 @@ class ProfileController extends Controller
     }
 
 
-    public function update(Request $request)
+    public function update(Request $request, User $user)
     {
-        $user = auth()->user();
+        // $user = auth()->user();
+        $user = \Auth::user();
+
 
         $validated = $request->validate([
             'name'=>'required',

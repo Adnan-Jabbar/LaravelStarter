@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\MailSettingController;
 
 /*
